@@ -16,25 +16,15 @@ public class SimpleTest
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("MyTest");
 
         PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx = pm.currentTransaction();
         try
         {
-            tx.begin();
+            Person person = new Person(1, 999);
+            pm.makePersistent(person);
 
-            // [INSERT code here to persist object required for testing]
-            tx.commit();
+            pm.getObjectById(Person.class, (long)1);
         }
-        catch (Throwable thr)
+        finally
         {
-            NucleusLogger.GENERAL.error(">> Exception thrown persisting data", thr);
-            fail("Failed to persist data : " + thr.getMessage());
-        }
-        finally 
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
             pm.close();
         }
 

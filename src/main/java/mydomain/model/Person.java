@@ -2,23 +2,28 @@ package mydomain.model;
 
 import javax.jdo.annotations.*;
 
-@PersistenceCapable(detachable="true")
+@PersistenceCapable(detachable="true", table="person")
 public class Person
 {
     @PrimaryKey
     Long id;
 
-    String name;
+    Integer integer;
 
-    public Person(long id, String name)
+    public Person(long id, Integer integer)
     {
         this.id = id;
-        this.name = name;
+        this.integer = integer;
     }
 
-    public String getName()
+    public Integer getInteger()
     {
-        return name;
+        return integer;
+    }
+
+    public void setInteger(Integer integer)
+    {
+        this.integer = integer;
     }
 
     public Long getId()
